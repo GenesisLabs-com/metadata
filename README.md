@@ -26,7 +26,7 @@ These instructions will get you a copy of the project up and running on your loc
 Clone the repository:
 
 ```
-$ git clone https://github.com/bilalrns/metadata.git
+$ git clone https://github.com/RNSSolution/metadata.git
 ```
 
 Enter the project directory:
