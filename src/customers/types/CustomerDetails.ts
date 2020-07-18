@@ -105,10 +105,7 @@ export interface CustomerDetails_user {
   firstName: string;
   lastName: string;
   dateJoined: any;
-  metadata: [{
-    key: string;
-    value: string;
-  }];
+  metadata: any;
   lastLogin: any | null;
   defaultShippingAddress: CustomerDetails_user_defaultShippingAddress | null;
   defaultBillingAddress: CustomerDetails_user_defaultBillingAddress | null;

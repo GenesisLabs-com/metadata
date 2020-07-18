@@ -89,6 +89,9 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
   const removeCommas = removeRightBracket.replace(/'/g, "");
   const removeSpaces = removeCommas.replace(" ", "");
   data.combineExceptions = removeSpaces;
+
+  const weightError = parseFloat(data.weight) > 10.000;
+
   return (
     <Card>
       <CardTitle
@@ -123,7 +126,10 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
             defaultMessage: "Weight",
             description: "item number"
           })}
-          error={!!formErrors.weight}
+          helperText={weightError && intl.formatMessage({
+            defaultMessage: "Value must be between 0 - 10.000"
+          })}
+          error={weightError}
           name="weight"
           fullWidth
           className={classes.fields}
@@ -260,6 +266,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
         </Typography>
         <div className={classes.root}>
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL1",
@@ -275,6 +282,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
             onChange={onChange}
           />
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL2",
@@ -291,6 +299,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
             onChange={onChange}
           />
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL3",
@@ -307,6 +316,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
             onChange={onChange}
           />
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL4",
@@ -325,6 +335,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
         </div>
         <div className={classes.root}>
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL5",
@@ -340,6 +351,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
             onChange={onChange}
           />
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL6",
@@ -356,6 +368,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
             onChange={onChange}
           />
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL7",
@@ -372,6 +385,7 @@ const ProductItemMetaConfig: React.FC<ProductItemMetaConfigProps> = props => {
             onChange={onChange}
           />
           <TextField
+            onKeyDown={(evt) => evt.key === '.' && evt.preventDefault()}
             disabled={disabled}
             label={intl.formatMessage({
               defaultMessage: "LTL8",

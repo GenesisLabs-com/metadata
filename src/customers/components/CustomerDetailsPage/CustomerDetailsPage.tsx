@@ -21,6 +21,7 @@ import CustomerOrders from "../CustomerOrders";
 import CustomerStats from "../CustomerStats";
 
 export interface CustomerDetailsPageFormData {
+  array: [];
   firstName: string;
   lastName: string;
   email: string;
@@ -64,6 +65,7 @@ const CustomerDetailsPage: React.FC<CustomerDetailsPageProps> = ({
   return (
     <Form
       initial={{
+        array: maybe(()=> customer.metadata, []),
         discountValue: maybe(() => customer.metadata[0].value, "0"),
         email: maybe(() => customer.email, ""),
         firstName: maybe(() => customer.firstName, ""),

@@ -39,87 +39,92 @@ export function createUpdateHandler(
     if (product.productType.hasVariants) {
       updateProduct(productVariables);
     } else {
-      updateSimpleProduct({
-        ...productVariables,
-        addStocks: data.addStocks.map(mapFormsetStockToStockInput),
-        deleteStocks: data.removeStocks,
-        metadata: [
-          {
-            key: "combineExceptions",
-            value: combineExceptionsArray
+      if(parseFloat(data.weight) > 10.000){
+        return
+      }
+      else {
+        updateSimpleProduct({
+          ...productVariables,
+          addStocks: data.addStocks.map(mapFormsetStockToStockInput),
+          deleteStocks: data.removeStocks,
+          metadata: [
+            {
+              key: "combineExceptions",
+              value: combineExceptionsArray
+            },
+            {
+              key: "itemNumber",
+              value: data.itemNumber
+            },
+            {
+              key: "itemSizeHeight",
+              value: data.itemSizeHeight
+            },
+            {
+              key: "itemSizeLength",
+              value: data.itemSizeLength
+            },
+            {
+              key: "itemSizeWidth",
+              value: data.itemSizeWidth
+            },
+            {
+              key: "itemStackConfigHeight",
+              value: data.itemStackConfigHeight
+            },
+            {
+              key: "itemStackConfigLength",
+              value: data.itemStackConfigLength
+            },
+            {
+              key: "itemStackConfigWidth",
+              value: data.itemStackConfigWidth
+            },
+            {
+              key: "shipClassLTL1",
+              value: data.shipClassLTL1
+            },
+            {
+              key: "shipClassLTL2",
+              value: data.shipClassLTL2
+            },
+            {
+              key: "shipClassLTL3",
+              value: data.shipClassLTL3
+            },
+            {
+              key: "shipClassLTL4",
+              value: data.shipClassLTL4
+            },
+            {
+              key: "shipClassLTL5",
+              value: data.shipClassLTL5
+            },
+            {
+              key: "shipClassLTL6",
+              value: data.shipClassLTL6
+            },
+            {
+              key: "shipClassLTL7",
+              value: data.shipClassLTL7
+            },
+            {
+              key: "shipClassLTL8",
+              value: data.shipClassLTL8
+            },
+            {
+              key: "weight",
+              value: data.weight
+            }
+          ],
+          productVariantId: product.variants[0].id,
+          productVariantInput: {
+            sku: data.sku,
+            trackInventory: data.trackInventory
           },
-          {
-            key: "itemNumber",
-            value: data.itemNumber
-          },
-          {
-            key: "itemSizeHeight",
-            value: data.itemSizeHeight
-          },
-          {
-            key: "itemSizeLength",
-            value: data.itemSizeLength
-          },
-          {
-            key: "itemSizeWidth",
-            value: data.itemSizeWidth
-          },
-          {
-            key: "itemStackConfigHeight",
-            value: data.itemStackConfigHeight
-          },
-          {
-            key: "itemStackConfigLength",
-            value: data.itemStackConfigLength
-          },
-          {
-            key: "itemStackConfigWidth",
-            value: data.itemStackConfigWidth
-          },
-          {
-            key: "shipClassLTL1",
-            value: data.shipClassLTL1
-          },
-          {
-            key: "shipClassLTL2",
-            value: data.shipClassLTL2
-          },
-          {
-            key: "shipClassLTL3",
-            value: data.shipClassLTL3
-          },
-          {
-            key: "shipClassLTL4",
-            value: data.shipClassLTL4
-          },
-          {
-            key: "shipClassLTL5",
-            value: data.shipClassLTL5
-          },
-          {
-            key: "shipClassLTL6",
-            value: data.shipClassLTL6
-          },
-          {
-            key: "shipClassLTL7",
-            value: data.shipClassLTL7
-          },
-          {
-            key: "shipClassLTL8",
-            value: data.shipClassLTL8
-          },
-          {
-            key: "weight",
-            value: data.weight
-          }
-        ],
-        productVariantId: product.variants[0].id,
-        productVariantInput: {
-          sku: data.sku,
-          trackInventory: data.trackInventory
-        },
-        updateStocks: data.updateStocks.map(mapFormsetStockToStockInput)
-      });
+          updateStocks: data.updateStocks.map(mapFormsetStockToStockInput)
+        });
+      }
     }
   };
 }

@@ -96,28 +96,35 @@ export const CustomerDetailsView: React.FC<CustomerDetailsViewProps> = ({
                       onBack={handleBack}
                       onRowClick={id => navigate(orderUrl(id))}
                       onSubmit={formData =>
-                        updateCustomer({
-                          variables: {
-                            id,
-                            input: {
-                              email: formData.email,
-                              firstName: formData.firstName,
-                              isActive: formData.isActive,
-                              lastName: formData.lastName,
-                              note: formData.note
-                            },
-                            metadata: [
-                              {
-                                key: "fee",
-                                value: formData.isFee
-                              },
-                              {
-                                key: formData.inputType,
-                                value: formData.discountValue
-                              }
-                            ]
+                        {
+                          if(parseFloat(formData.discountValue) > 1.8){
+                            return
                           }
-                        })
+                          else{
+                            updateCustomer({
+                              variables: {
+                                id,
+                                input: {
+                                  email: formData.email,
+                                  firstName: formData.firstName,
+                                  isActive: formData.isActive,
+                                  lastName: formData.lastName,
+                                  note: formData.note
+                                },
+                                metadata: [
+                                  {
+                                    key: "fee",
+                                    value: formData.isFee
+                                  },
+                                  {
+                                    key: formData.inputType,
+                                    value: formData.discountValue
+                                  }
+                                ]
+                              }
+                            })
+                          }
+                        }
                       }
                       onDelete={() =>
                         navigate(

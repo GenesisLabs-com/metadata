@@ -17,6 +17,7 @@ import { commonMessages } from "@saleor/intl";
 import { AccountErrorFragment } from "@saleor/customers/types/AccountErrorFragment";
 import { getFormErrors } from "@saleor/utils/errors";
 import getAccountErrorMessage from "@saleor/utils/errors/account";
+import { maybe } from "../../../misc";
 
 const useStyles = makeStyles(
   theme => ({
@@ -38,6 +39,7 @@ const useStyles = makeStyles(
 
 export interface CustomerFeesAndDiscountsProps {
   data: {
+    array: any;
     discountValue: string;
     firstName: string;
     lastName: string;
@@ -96,6 +98,38 @@ const CustomerFeesAndDiscounts: React.FC<CustomerFeesAndDiscountsProps> = props 
       value: "DISCOUNT_CODE4040"
     }
   ];
+  const discountValueError = parseFloat(data.discountValue) > 1.8;
+
+  // React.useEffect(()=>{
+    if(data.inputType === "DISCOUNT_CODE4000") {
+      maybe(() => {
+      const discountCode4000Val = data.array.filter(item => item.key === "DISCOUNT_CODE4000")
+      data.discountValue = discountCode4000Val[0].value;
+    })}
+    else if(data.inputType === "DISCOUNT_CODE4020") {
+      maybe(() => {
+      const discountCode4020Val = data.array.filter(item => item.key === "DISCOUNT_CODE4020")
+      data.discountValue = discountCode4020Val[0].value;
+    })}
+    else if(data.inputType === "DISCOUNT_CODE4022") {
+      maybe(() => {
+      const discountCode4022Val = data.array.filter(item => item.key === "DISCOUNT_CODE4022")
+      data.discountValue = discountCode4022Val[0].value;
+    })}
+    else if(data.inputType === "DISCOUNT_CODE4030") {
+      maybe(() => {
+        const discountCode4030Val = data.array.filter(item => item.key === "DISCOUNT_CODE4030")
+        data.discountValue = discountCode4030Val[0].value;
+    })}
+    else if(data.inputType === "DISCOUNT_CODE4040") {
+      maybe(() => {
+        const discountCode4040Val = data.array.filter(item => item.key === "DISCOUNT_CODE4040")
+        data.discountValue = discountCode4040Val[0].value;
+      })
+    }
+  // },[data.discountValue,data.inputType])
+  
+
   return (
     <Card>
       <CardTitle
@@ -137,13 +171,15 @@ const CustomerFeesAndDiscounts: React.FC<CustomerFeesAndDiscountsProps> = props 
           />
           <TextFieldWithChoice
             disabled={disabled}
-            error={!!formErrors.discountValue}
+            error={discountValueError}
             ChoiceProps={{
               label: "%",
               name: "discountValue" as keyof FormData,
               values: null
             }}
-            helperText={getAccountErrorMessage(formErrors.discountValue, intl)}
+            helperText={discountValueError && intl.formatMessage({
+              defaultMessage: "Value must be between 0 - 1.8"
+            })}
             name={"discountValue" as keyof FormData}
             onChange={onChange}
             label={intl.formatMessage({
