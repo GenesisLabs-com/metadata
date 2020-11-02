@@ -15,6 +15,7 @@ export function createUpdateHandler(
   updateSimpleProduct: (variables: SimpleProductUpdateVariables) => void
 ) {
   return (data: ProductUpdatePageSubmitData) => {
+    const combineExceptionsArray = data.combineExceptions.split(",");
     const productVariables: ProductUpdateVariables = {
       attributes: data.attributes.map(attribute => ({
         id: attribute.id,
@@ -27,6 +28,76 @@ export function createUpdateHandler(
       descriptionJson: JSON.stringify(data.description),
       id: product.id,
       isPublished: data.isPublished,
+      metadata: [
+        {
+          key: "combineExceptions",
+          value: combineExceptionsArray
+        },
+        {
+          key: "itemNumber",
+          value: data.itemNumber
+        },
+        {
+          key: "itemSizeHeight",
+          value: data.itemSizeHeight
+        },
+        {
+          key: "itemSizeLength",
+          value: data.itemSizeLength
+        },
+        {
+          key: "itemSizeWidth",
+          value: data.itemSizeWidth
+        },
+        {
+          key: "itemStackConfigHeight",
+          value: data.itemStackConfigHeight
+        },
+        {
+          key: "itemStackConfigLength",
+          value: data.itemStackConfigLength
+        },
+        {
+          key: "itemStackConfigWidth",
+          value: data.itemStackConfigWidth
+        },
+        {
+          key: "shipClassLTL1",
+          value: data.shipClassLTL1
+        },
+        {
+          key: "shipClassLTL2",
+          value: data.shipClassLTL2
+        },
+        {
+          key: "shipClassLTL3",
+          value: data.shipClassLTL3
+        },
+        {
+          key: "shipClassLTL4",
+          value: data.shipClassLTL4
+        },
+        {
+          key: "shipClassLTL5",
+          value: data.shipClassLTL5
+        },
+        {
+          key: "shipClassLTL6",
+          value: data.shipClassLTL6
+        },
+        {
+          key: "shipClassLTL7",
+          value: data.shipClassLTL7
+        },
+        {
+          key: "shipClassLTL8",
+          value: data.shipClassLTL8
+        },
+        {
+          key: "weight",
+          value: data.weight
+        }
+      ],
       name: data.name,
       publicationDate:
         data.publicationDate !== "" ? data.publicationDate : null,
@@ -35,14 +106,12 @@ export function createUpdateHandler(
         title: data.seoTitle
       }
     };
-    const combineExceptionsArray = data.combineExceptions.split(",");
     if (product.productType.hasVariants) {
       updateProduct(productVariables);
     } else {
-      if(parseFloat(data.weight) > 10.000){
-        return
-      }
-      else {
+      if (parseFloat(data.weight) > 10.0) {
+        return;
+      } else {
         updateSimpleProduct({
           ...productVariables,
           addStocks: data.addStocks.map(mapFormsetStockToStockInput),
